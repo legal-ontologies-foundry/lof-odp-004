@@ -1,0 +1,52 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix lof: <https://w3id.org/lof/> .
+
+<https://w3id.org/lof/odp-003.owl> a owl:Ontology ;
+  rdfs:comment "LOCAL STUB reconstructed from the published LOF-ODP-003 page, OPTION B." ;
+  owl:imports <https://w3id.org/lof/odp-001.owl> .
+lof:ODP003_0001000 a owl:Class ; rdfs:label "legal position"@en ;
+  rdfs:subClassOf obo:BFO_0000031 ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001100 ; owl:someValuesFrom obo:BFO_0000040 ] ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001101 ; owl:someValuesFrom lof:ODP001_0001001 ] ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:someValuesFrom lof:ODP003_0001000 ] .
+lof:ODP003_0001009 a owl:Class ; rdfs:label "first-order legal position"@en ; rdfs:subClassOf lof:ODP003_0001000 .
+lof:ODP003_0001010 a owl:Class ; rdfs:label "second-order legal position"@en ; rdfs:subClassOf lof:ODP003_0001000 .
+lof:ODP003_0001001 a owl:Class ; rdfs:label "claim"@en ;
+  rdfs:subClassOf lof:ODP003_0001009 ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:someValuesFrom lof:ODP003_0001002 ] ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:allValuesFrom lof:ODP003_0001002 ] .
+lof:ODP003_0001002 a owl:Class ; rdfs:label "duty"@en ;
+  rdfs:subClassOf lof:ODP003_0001009 ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:someValuesFrom lof:ODP003_0001001 ] ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:allValuesFrom lof:ODP003_0001001 ] .
+lof:ODP003_0001003 a owl:Class ; rdfs:label "liberty"@en ;
+  rdfs:subClassOf lof:ODP003_0001009 ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:someValuesFrom lof:ODP003_0001004 ] ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:allValuesFrom lof:ODP003_0001004 ] .
+lof:ODP003_0001004 a owl:Class ; rdfs:label "no-claim"@en ;
+  rdfs:subClassOf lof:ODP003_0001009 ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:someValuesFrom lof:ODP003_0001003 ] ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:allValuesFrom lof:ODP003_0001003 ] .
+lof:ODP003_0001005 a owl:Class ; rdfs:label "power"@en ;
+  rdfs:subClassOf lof:ODP003_0001010 ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:someValuesFrom lof:ODP003_0001006 ] ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:allValuesFrom lof:ODP003_0001006 ] .
+lof:ODP003_0001006 a owl:Class ; rdfs:label "liability"@en ;
+  rdfs:subClassOf lof:ODP003_0001010 ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:someValuesFrom lof:ODP003_0001005 ] ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:allValuesFrom lof:ODP003_0001005 ] .
+lof:ODP003_0001007 a owl:Class ; rdfs:label "immunity"@en ;
+  rdfs:subClassOf lof:ODP003_0001010 ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:someValuesFrom lof:ODP003_0001008 ] ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:allValuesFrom lof:ODP003_0001008 ] .
+lof:ODP003_0001008 a owl:Class ; rdfs:label "disability"@en ;
+  rdfs:subClassOf lof:ODP003_0001010 ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:someValuesFrom lof:ODP003_0001007 ] ,
+    [ a owl:Restriction ; owl:onProperty lof:ODP003_0001102 ; owl:allValuesFrom lof:ODP003_0001007 ] .
+[] a owl:AllDisjointClasses ; owl:members ( lof:ODP003_0001001 lof:ODP003_0001002 lof:ODP003_0001003 lof:ODP003_0001004 lof:ODP003_0001005 lof:ODP003_0001006 lof:ODP003_0001007 lof:ODP003_0001008 ) .
+lof:ODP003_0001100 a owl:ObjectProperty ; rdfs:label "held by"@en ; rdfs:domain lof:ODP003_0001000 .
+lof:ODP003_0001101 a owl:ObjectProperty ; rdfs:label "grounded in"@en ; rdfs:domain lof:ODP003_0001000 ; rdfs:range lof:ODP001_0001001 .
+lof:ODP003_0001102 a owl:ObjectProperty , owl:SymmetricProperty ; rdfs:label "correlative of"@en ; rdfs:domain lof:ODP003_0001000 ; rdfs:range lof:ODP003_0001000 .
+lof:ODP003_0001103 a owl:ObjectProperty ; rdfs:label "exercised in"@en ; rdfs:domain lof:ODP003_0001005 ; rdfs:range lof:ODP001_0001000 .
