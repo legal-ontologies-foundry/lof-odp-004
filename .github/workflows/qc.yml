@@ -1,0 +1,17 @@
+name: qc
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  qc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Run LOF QC checks
+        working-directory: src/ontology
+        run: make test
