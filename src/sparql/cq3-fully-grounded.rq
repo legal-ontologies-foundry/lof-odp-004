@@ -1,4 +1,0 @@
-# CQ3. Which legal positions are fully grounded (every MLC node occupied)?
-PREFIX lof: <https://w3id.org/lof/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-SELECT ?position WHERE { ?p a lof:ODP004_0001003 ; rdfs:label ?position }
