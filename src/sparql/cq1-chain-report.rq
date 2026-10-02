@@ -1,0 +1,15 @@
+# CQ1. For each first-order legal position: its holder, grounding content, the
+# power under which that content was established, trigger, generating
+# occurrent, target, and remedy provision (blank where the node is empty).
+PREFIX lof: <https://w3id.org/lof/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?position ?holder ?norm ?authority ?trigger ?generator ?target ?remedy WHERE {
+  ?p a lof:ODP003_0001009 ; rdfs:label ?position .
+  OPTIONAL { ?p lof:ODP003_0001100/rdfs:label ?holder }
+  OPTIONAL { ?p lof:ODP003_0001101 ?n . ?n rdfs:label ?norm .
+             OPTIONAL { ?n lof:ODP001_0001101/^lof:ODP003_0001103/rdfs:label ?authority } }
+  OPTIONAL { ?p lof:ODP004_0001102/rdfs:label ?trigger }
+  OPTIONAL { ?p lof:ODP004_0001100/rdfs:label ?generator }
+  OPTIONAL { ?p lof:ODP004_0001103/rdfs:label ?target }
+  OPTIONAL { ?p lof:ODP004_0001105/rdfs:label ?remedy }
+} ORDER BY ?position

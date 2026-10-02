@@ -1,0 +1,7 @@
+# LOF-P-003: no two LOF terms share a label
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?a ?b ?l WHERE {
+  ?a rdfs:label ?l . ?b rdfs:label ?l .
+  FILTER(STRSTARTS(STR(?a), "https://w3id.org/lof/ODP") && STRSTARTS(STR(?b), "https://w3id.org/lof/ODP"))
+  FILTER(STR(?a) < STR(?b))
+}

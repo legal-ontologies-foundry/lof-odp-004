@@ -1,0 +1,8 @@
+# LOF-P-004: every LOF class has a BFO ancestor (run on the reasoned ontology)
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT ?term WHERE {
+  ?term a owl:Class .
+  FILTER(isIRI(?term) && STRSTARTS(STR(?term), "https://w3id.org/lof/ODP"))
+  FILTER NOT EXISTS { ?term rdfs:subClassOf+ ?b . FILTER(STRSTARTS(STR(?b), "http://purl.obolibrary.org/obo/BFO_")) }
+}

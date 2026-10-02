@@ -1,0 +1,8 @@
+# LOF-P-007: every LOF term has a textual definition
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT ?term WHERE {
+  { ?term a owl:Class } UNION { ?term a owl:ObjectProperty }
+  FILTER(STRSTARTS(STR(?term), "https://w3id.org/lof/ODP"))
+  FILTER NOT EXISTS { ?term skos:definition ?d }
+}

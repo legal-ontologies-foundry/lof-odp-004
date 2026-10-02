@@ -1,0 +1,7 @@
+# LOF-P-012: labels are lower case (proper names and acronyms excepted by review)
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?term ?l WHERE {
+  ?term rdfs:label ?l .
+  FILTER(STRSTARTS(STR(?term), "https://w3id.org/lof/ODP"))
+  FILTER(REGEX(STR(?l), "^[A-Z][a-z]"))
+}

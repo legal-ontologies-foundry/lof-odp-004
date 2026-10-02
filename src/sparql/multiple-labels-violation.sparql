@@ -1,0 +1,7 @@
+# LOF-P-012: at most one English label per term
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?term WHERE {
+  ?term rdfs:label ?a , ?b .
+  FILTER(STRSTARTS(STR(?term), "https://w3id.org/lof/ODP"))
+  FILTER(?a != ?b && LANG(?a) = LANG(?b))
+}

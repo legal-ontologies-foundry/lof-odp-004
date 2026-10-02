@@ -1,0 +1,7 @@
+# LOF-P-005: LOF term IRIs follow https://w3id.org/lof/{PREFIX}_nnnnnnn
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT ?term WHERE {
+  { ?term a owl:Class } UNION { ?term a owl:ObjectProperty }
+  FILTER(isIRI(?term) && STRSTARTS(STR(?term), "https://w3id.org/lof/"))
+  FILTER(!REGEX(STR(?term), "^https://w3id.org/lof/ODP[0-9]{3}_[0-9]{7}$"))
+}

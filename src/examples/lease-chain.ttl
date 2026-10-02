@@ -1,0 +1,71 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix lof: <https://w3id.org/lof/> .
+@prefix ex: <https://example.org/lease/> .
+
+# Worked example for LOF-ODP-004, continuing the residential lease used in ODP-001 to 003.
+# Hypothetical parties. Imports ODP-004.
+<https://w3id.org/lof/odp-004/examples/lease-chain.ttl> a owl:Ontology ;
+  owl:imports <https://w3id.org/lof/odp-004.owl> .
+
+## Parties
+ex:ana a obo:BFO_0000040 ; rdfs:label "Ana" .
+ex:northside a obo:BFO_0000040 ; rdfs:label "Northside Properties" .
+
+## Node 1 (authority) and node 2 (norm)
+ex:legislature a obo:BFO_0000040 ; rdfs:label "state legislature" .
+ex:legislativePower a lof:ODP003_0001005 ; rdfs:label "legislative power" ;
+  lof:ODP003_0001100 ex:legislature ; lof:ODP003_0001101 ex:constitution ;
+  lof:ODP003_0001103 ex:tenantCodeEnactment .
+ex:constitution a lof:ODP001_0001001 ; rdfs:label "state constitution" .
+ex:tenantCodeEnactment a lof:ODP001_0001003 ; rdfs:label "enactment of the tenancy code" ;
+  obo:BFO_0000057 ex:legislature ; lof:ODP001_0001100 ex:tenantCode .
+ex:tenantCode a lof:ODP001_0001001 ; rdfs:label "residential tenancy code" .
+ex:anaContractPower a lof:ODP003_0001005 ; rdfs:label "Ana's power to contract" ;
+  lof:ODP003_0001100 ex:ana ; lof:ODP003_0001101 ex:tenantCode ;
+  lof:ODP003_0001103 ex:leaseSigning .
+ex:leaseTerms a lof:ODP001_0001001 ; rdfs:label "lease terms" .
+
+## Node 3 (actor in role) and node 5 (legal act)
+ex:anaPartyRole a lof:ODP002_0001000 ; rdfs:label "Ana's role as contracting party" ;
+  obo:BFO_0000197 ex:ana .
+ex:leaseSigning a lof:ODP001_0001004 ; rdfs:label "lease signing, 1 March" ;
+  obo:BFO_0000057 ex:ana , ex:northside ;
+  lof:ODP001_0001100 ex:leaseTerms ;
+  lof:ODP001_0001102 ex:tenantCode ;
+  obo:BFO_0000055 ex:anaPartyRole .
+
+## Node 4 (trigger), node 6 (target), node 7 (effect)
+ex:aprilPeriodStart a obo:BFO_0000035 ; rdfs:label "start of April rental period" .
+ex:anaAprilRentDuty a lof:ODP003_0001002 ; rdfs:label "Ana's duty to pay April rent" ;
+  lof:ODP003_0001100 ex:ana ;
+  lof:ODP003_0001101 ex:leaseTerms ;
+  lof:ODP003_0001102 ex:northsideAprilRentClaim ;
+  lof:ODP004_0001102 ex:aprilPeriodStart ;
+  lof:ODP004_0001100 ex:leaseSigning ;
+  lof:ODP004_0001105 ex:tenantCode .      # node 8: remedy provided by
+ex:northsideAprilRentClaim a lof:ODP003_0001001 ; rdfs:label "Northside's claim to April rent" ;
+  lof:ODP003_0001100 ex:northside ; lof:ODP003_0001101 ex:leaseTerms .
+# NOT asserted: anaAprilRentDuty directed at northside. The reasoner infers it.
+
+## Breach by omission, and the remedial position (node 8)
+ex:aprilPaymentWindow a obo:BFO_0000038 ; rdfs:label "1 to 5 April" .
+ex:anaAprilRentDuty lof:ODP004_0001106 ex:aprilPaymentWindow .
+ex:aprilWindowEnd a obo:BFO_0000203 ; rdfs:label "end of 5 April" .
+ex:northsideLateFeeClaim a lof:ODP003_0001001 ; rdfs:label "Northside's claim to a late fee" ;
+  lof:ODP003_0001100 ex:northside ; lof:ODP003_0001101 ex:tenantCode ;
+  lof:ODP004_0001104 ex:anaAprilRentDuty ;
+  lof:ODP004_0001102 ex:aprilWindowEnd ;
+  lof:ODP004_0001100 ex:aprilWindowEnd ;   # arises by operation of law: no act
+  lof:ODP004_0001105 ex:tenantCode ;
+  lof:ODP003_0001102 ex:anaLateFeeDuty .
+ex:anaLateFeeDuty a lof:ODP003_0001002 ; rdfs:label "Ana's duty to pay a late fee" ;
+  lof:ODP003_0001100 ex:ana ; lof:ODP003_0001101 ex:tenantCode .
+
+## A defective chain: a side promise with no trigger, no generating act, no remedy
+ex:sidePromise a lof:ODP001_0001001 ; rdfs:label "oral side promise" .
+ex:anaRepaintDuty a lof:ODP003_0001002 ; rdfs:label "Ana's duty to repaint" ;
+  lof:ODP003_0001100 ex:ana ; lof:ODP003_0001101 ex:sidePromise ;
+  lof:ODP003_0001102 ex:northsideRepaintClaim .
+ex:northsideRepaintClaim a lof:ODP003_0001001 ; lof:ODP003_0001100 ex:northside ; lof:ODP003_0001101 ex:sidePromise .

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <uri name="https://w3id.org/lof/odp-004/imports/bfo_import.owl" uri="imports/bfo_import.owl"/>
+  <uri name="https://w3id.org/lof/odp-004/imports/odp-001_import.owl" uri="imports/odp-001_import.owl"/>
+  <uri name="https://w3id.org/lof/odp-004/imports/odp-002_import.owl" uri="imports/odp-002_import.owl"/>
+  <uri name="https://w3id.org/lof/odp-004/imports/odp-003_import.owl" uri="alternatives/odp-003_import-option-b.owl"/>
+  <uri name="https://w3id.org/lof/odp-004.owl" uri="lof-odp-004-edit.ttl"/>
+</catalog>
