@@ -11,12 +11,12 @@
      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
      xmlns:dcterms="http://purl.org/dc/terms/">
     <owl:Ontology rdf:about="https://w3id.org/lof/odp-004/imports/odp-002_import.owl">
-        <owl:versionIRI rdf:resource="https://w3id.org/lof/odp-002/releases/0.1.0/lof-odp-002-base.owl"/>
+        <owl:versionIRI rdf:resource="https://w3id.org/lof/odp-002/releases/0.2.0/lof-odp-002-base.owl"/>
         <dcterms:creator>David R. Koepsell</dcterms:creator>
         <dcterms:description xml:lang="en">Ontology design pattern for legal roles (judge, trustee, tenant, guardian) and the legal acts that confer and terminate them. Builds on LOF-ODP-001. DRAFT for review by the LOF founding coordinators.</dcterms:description>
         <dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
         <dcterms:title xml:lang="en">LOF-ODP-002: Legal Role Conferral</dcterms:title>
-        <owl:versionInfo>0.1.0</owl:versionInfo>
+        <owl:versionInfo>0.2.0</owl:versionInfo>
     </owl:Ontology>
     
 
@@ -128,6 +128,17 @@
     
 
 
+    <!-- https://w3id.org/lof/ODP002_0001104 -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP002_0001104">
+        <rdfs:domain rdf:resource="https://w3id.org/lof/ODP001_0001000"/>
+        <rdfs:range rdf:resource="https://w3id.org/lof/ODP002_0001000"/>
+        <rdfs:label xml:lang="en">modifies</rdfs:label>
+        <skos:definition xml:lang="en">A relation between a legal act and a legal role whose content the act changes without bringing the role to an end.</skos:definition>
+    </owl:ObjectProperty>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -173,6 +184,14 @@
                 <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000197"/>
+                <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">A legal role has exactly one bearer (ISO/IEC 21838-2: a specifically dependent continuant inheres in exactly one bearer). When command passes from one officer to another, or a trustee is replaced, the outgoing role is terminated and a new role is conferred; what persists is the legal content that specifies both roles. Proposed by W. Mandrick&apos;s change-of-command use case.</rdfs:comment>
+        <rdfs:comment xml:lang="en">A legal role may be borne by an organization as well as a person. Persons who act for an organization, for example in a conferral act, take part as members or agents of it; the Common Core Ontologies supply &apos;organization&apos;, &apos;organization member role&apos;, and &apos;is affiliated with&apos; for this, and the LOF to CCO bridge aligns them.</rdfs:comment>
         <rdfs:comment xml:lang="en">BFO placement (LOF-P-004): a legal role is borne by a person or organization because of external circumstances (an appointment, a contract, a statute) rather than because of the bearer&apos;s physical make-up, and the bearer need not change physically to acquire or lose it. That is the mark of a BFO role, as opposed to a disposition.</rdfs:comment>
         <rdfs:label xml:lang="en">legal role</rdfs:label>
         <skos:definition xml:lang="en">A role that inheres in a person or organization in virtue of some legal act or legal content, and that is realized in processes having legal significance.</skos:definition>
@@ -216,6 +235,7 @@
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">The conferral act realizes the power (LOF-ODP-003) of whoever performs it, which corresponds to the D-Acts &apos;deontic declaration performer role&apos;. It does not realize the role it confers: that role is realized later, when its bearer acts in it. A conferral act occupies a temporal region (BFO &apos;occupies temporal region&apos;), which dates the role&apos;s beginning.</rdfs:comment>
         <rdfs:label xml:lang="en">role conferral act</rdfs:label>
         <skos:definition xml:lang="en">A legal act that brings some legal role into existence in some bearer.</skos:definition>
         <skos:example xml:lang="en">the commissioning of a judge; the execution of a trust instrument naming a trustee; the signing of a lease</skos:example>
@@ -240,6 +260,28 @@
         <rdfs:label xml:lang="en">role termination act</rdfs:label>
         <skos:definition xml:lang="en">A legal act that brings some legal role to an end.</skos:definition>
         <skos:example xml:lang="en">the removal of a trustee by a court; the resignation of a judge; the termination of a lease</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/lof/ODP002_0001004 -->
+
+    <owl:Class rdf:about="https://w3id.org/lof/ODP002_0001004">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://w3id.org/lof/ODP001_0001000"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://w3id.org/lof/ODP002_0001104"/>
+                        <owl:someValuesFrom rdf:resource="https://w3id.org/lof/ODP002_0001000"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">Proposed by W. Mandrick (ODP 2 slide). The current D-Acts &apos;deontic declaration&apos; covers creating and revoking a deontic role but not modifying one, so this class has no D-Acts parent until D-Acts extends its definition.</rdfs:comment>
+        <rdfs:label xml:lang="en">role modification act</rdfs:label>
+        <skos:definition xml:lang="en">A legal act that changes what an existing legal role consists in, without bringing the role to an end.</skos:definition>
+        <skos:example xml:lang="en">a court order enlarging a guardian&apos;s powers; an amendment to a lease changing the tenant&apos;s obligations</skos:example>
     </owl:Class>
 </rdf:RDF>
 

@@ -7,8 +7,8 @@
 @prefix lof: <https://w3id.org/lof/> .
 
 <https://w3id.org/lof/odp-004.owl> a owl:Ontology ;
-  owl:versionIRI <https://w3id.org/lof/odp-004/releases/0.1.0/odp-004.owl> ;
-  owl:versionInfo "0.1.0" ;
+  owl:versionIRI <https://w3id.org/lof/odp-004/releases/0.2.0/odp-004.owl> ;
+  owl:versionInfo "0.2.0" ;
   dcterms:title "LOF-ODP-004: Minimum Legal Chain"@en ;
   dcterms:description "DRAFT for review by the LOF founding coordinators. An ontology design pattern connecting the authority, norm, role, trigger, act, target, effect, and remedy through which a legal position comes to exist, with a defined class for positions whose chain is complete. Adapted from the Minimum Legal Chain of A Structural Ontology of the Law (Koepsell, Palgrave, forthcoming)."@en ;
   dcterms:creator "David R. Koepsell" ;
@@ -101,3 +101,43 @@ lof:ODP004_0001106 a owl:ObjectProperty ;
   skos:definition "A relation between a first-order legal position and a temporal region during which no process occurs that complies with the position."@en ;
   rdfs:comment "Represents omission without reifying non-events: the omission is the asserted non-discharge of a position over a temporal region, and the end of that region is typically the triggering occurrence of a remedial position. Proposal for review."@en ;
   rdfs:domain lof:ODP003_0001009 ; rdfs:range obo:BFO_0000008 .
+
+##### Authority between bodies of legal content (0.2.0, issue #12, W. Mandrick) #####
+
+lof:ODP004_0001107 a owl:ObjectProperty ;
+  rdfs:label "legal basis for"@en ;
+  skos:definition "A relation between legal content and other legal content, wherein the former grounds a power that is exercised in the legal act that establishes the latter."@en ;
+  skos:example "8 U.S.C. 1103(a)(3) is the legal basis for 8 C.F.R. 103.1."@en ;
+  rdfs:comment "Proposed by W. Mandrick (issue #12): a relation from higher-level law to the lower-level law enacted under its authority. Defined by a property chain over LOF-ODP-001 and 003, so it is inferred whenever the chain of authority is recorded: the higher content grounds a power (grounded in), the power is exercised in an act (exercised in), and the act establishes the lower content (establishes). The chain runs through the power exercised, not through ODP-001 'performed under', so procedural rules under which an act is performed are not counted as its legal basis."@en ;
+  rdfs:domain lof:ODP001_0001001 ; rdfs:range lof:ODP001_0001001 ;
+  owl:propertyChainAxiom ( [ owl:inverseOf lof:ODP003_0001101 ] lof:ODP003_0001103 lof:ODP001_0001100 ) .
+
+lof:ODP004_0001108 a owl:ObjectProperty , owl:TransitiveProperty ;
+  rdfs:label "derives authority from"@en ;
+  skos:definition "A relation between legal content and legal content from which its authority descends through one or more steps of 'legal basis for'."@en ;
+  skos:example "8 C.F.R. 103.1 derives authority from 8 U.S.C. 1103(a)(3) and, through it, from Article I, section 8 of the U.S. Constitution."@en ;
+  rdfs:comment "Transitive, so the whole regress of authority (Minimum Legal Chain node 1, competency question 4) follows from the one-step links. Each step is the inverse of 'legal basis for'."@en ;
+  rdfs:domain lof:ODP001_0001001 ; rdfs:range lof:ODP001_0001001 .
+
+lof:ODP004_0001111 a owl:ObjectProperty ;
+  rdfs:label "has legal basis"@en ;
+  skos:definition "A relation between legal content and the legal content that is its legal basis."@en ;
+  owl:inverseOf lof:ODP004_0001107 ;
+  rdfs:subPropertyOf lof:ODP004_0001108 .
+
+lof:ODP004_0001109 a owl:ObjectProperty ;
+  rdfs:label "delegates legal authority to"@en ;
+  skos:definition "A relation between legal content and a person or organization that holds a power grounded in it."@en ;
+  skos:example "8 U.S.C. 1103(a)(3) delegates legal authority to the Secretary of Homeland Security."@en ;
+  rdfs:comment "Proposed by W. Mandrick (issue #12). Inferred by a property chain from grounded in, held by, and the technical helper 'power self-link', which restricts the chain to powers so that duties grounded in the same content do not count as delegations."@en ;
+  rdfs:domain lof:ODP001_0001001 ; rdfs:range obo:BFO_0000040 ;
+  owl:propertyChainAxiom ( [ owl:inverseOf lof:ODP003_0001101 ] lof:ODP004_0001110 lof:ODP003_0001100 ) .
+
+lof:ODP004_0001110 a owl:ObjectProperty ;
+  rdfs:label "power self-link"@en ;
+  skos:definition "A technical relation that holds between each power and itself, and only between powers."@en ;
+  rdfs:comment "Not for direct assertion. It lets property chains such as 'delegates legal authority to' apply only to powers (the standard OWL 2 self-restriction technique)."@en ;
+  rdfs:domain lof:ODP003_0001005 ; rdfs:range lof:ODP003_0001005 .
+
+lof:ODP003_0001005 rdfs:subClassOf [ a owl:Restriction ; owl:onProperty lof:ODP004_0001110 ; owl:hasSelf true ] .
+

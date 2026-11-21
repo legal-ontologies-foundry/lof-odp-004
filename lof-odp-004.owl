@@ -12,12 +12,12 @@
      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
      xmlns:dcterms="http://purl.org/dc/terms/">
     <owl:Ontology rdf:about="https://w3id.org/lof/odp-004.owl">
-        <owl:versionIRI rdf:resource="https://w3id.org/lof/odp-004/releases/0.1.0/lof-odp-004.owl"/>
+        <owl:versionIRI rdf:resource="https://w3id.org/lof/odp-004/releases/0.2.0/lof-odp-004.owl"/>
         <dcterms:creator>David R. Koepsell</dcterms:creator>
         <dcterms:description xml:lang="en">DRAFT for review by the LOF founding coordinators. An ontology design pattern connecting the authority, norm, role, trigger, act, target, effect, and remedy through which a legal position comes to exist, with a defined class for positions whose chain is complete. Adapted from the Minimum Legal Chain of A Structural Ontology of the Law (Koepsell, Palgrave, forthcoming).</dcterms:description>
         <dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
         <dcterms:title xml:lang="en">LOF-ODP-004: Minimum Legal Chain</dcterms:title>
-        <owl:versionInfo>0.1.0</owl:versionInfo>
+        <owl:versionInfo>0.2.0</owl:versionInfo>
     </owl:Ontology>
     
 
@@ -914,6 +914,30 @@
     
 
 
+    <!-- https://w3id.org/lof/ODP001_0001103 -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP001_0001103">
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000057"/>
+        <rdfs:domain rdf:resource="https://w3id.org/lof/ODP001_0001000"/>
+        <rdfs:range rdf:resource="https://w3id.org/lof/ODP001_0001002"/>
+        <rdfs:comment xml:lang="en">Documents do not act; persons and organizations do. A document related by this relation is an operative (dispositive) instrument: the law makes the writing part of how the act is done. Contrast evidences, which holds of documents that merely record or attest to an act.</rdfs:comment>
+        <rdfs:label xml:lang="en">performed by means of</rdfs:label>
+        <skos:definition xml:lang="en">A relation between a legal act and a legal document that participates in it as the instrument through which the act is performed, as when a deed is executed or a statutory form is signed before witnesses.</skos:definition>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/lof/ODP001_0001104 -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP001_0001104">
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:comment xml:lang="en">Evidencing is not participation: the evidencing entity may come into existence after the act, and the act may occur with no document at all. Nothing about an act, role, or position may be inferred from the existence of an evidencing document alone. An instrument usually also evidences the act performed by means of it, so the two relations are not disjoint.</rdfs:comment>
+        <rdfs:label xml:lang="en">evidences</rdfs:label>
+        <skos:definition xml:lang="en">A relation between a material entity, such as a legal document, and a legal act, legal content, or other entity whose existence or occurrence it records or attests to.</skos:definition>
+    </owl:ObjectProperty>
+    
+
+
     <!-- https://w3id.org/lof/ODP002_0001100 -->
 
     <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP002_0001100">
@@ -957,6 +981,17 @@
     
 
 
+    <!-- https://w3id.org/lof/ODP002_0001104 -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP002_0001104">
+        <rdfs:domain rdf:resource="https://w3id.org/lof/ODP001_0001000"/>
+        <rdfs:range rdf:resource="https://w3id.org/lof/ODP002_0001000"/>
+        <rdfs:label xml:lang="en">modifies</rdfs:label>
+        <skos:definition xml:lang="en">A relation between a legal act and a legal role whose content the act changes without bringing the role to an end.</skos:definition>
+    </owl:ObjectProperty>
+    
+
+
     <!-- https://w3id.org/lof/ODP003_0001100 -->
 
     <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP003_0001100">
@@ -964,7 +999,7 @@
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="https://w3id.org/lof/ODP003_0001000"/>
         <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
-        <rdfs:comment xml:lang="en">In Option A this is a functional subproperty of BFO &apos;inheres in&apos;, reflecting BFO&apos;s axiom that a specifically dependent continuant has exactly one bearer. A position can therefore never have two holders, even at different times.</rdfs:comment>
+        <rdfs:comment xml:lang="en">A functional subproperty of BFO &apos;inheres in&apos;, reflecting the one-bearer axiom of ISO/IEC 21838-2. A position never has two holders; a change of holder is a new position that succeeds the old one.</rdfs:comment>
         <rdfs:label xml:lang="en">held by</rdfs:label>
         <skos:definition xml:lang="en">A relation between a legal position and the person or organization whose position it is.</skos:definition>
     </owl:ObjectProperty>
@@ -997,10 +1032,26 @@
     <!-- https://w3id.org/lof/ODP003_0001103 -->
 
     <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP003_0001103">
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000054"/>
         <rdfs:domain rdf:resource="https://w3id.org/lof/ODP003_0001005"/>
         <rdfs:range rdf:resource="https://w3id.org/lof/ODP001_0001000"/>
+        <rdfs:comment xml:lang="en">A subproperty of BFO &apos;realized in&apos;: the legal act realizes the power exercised in it. This is the sense in which a role conferral act &apos;realizes&apos; something (W. Mandrick, ODP 2 slide): it realizes the conferring party&apos;s power, which corresponds to the D-Acts deontic declaration performer role, not the role it confers.</rdfs:comment>
         <rdfs:label xml:lang="en">exercised in</rdfs:label>
         <skos:definition xml:lang="en">A relation between a power and a legal act through which the holder of the power changes the legal positions of another party.</skos:definition>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/lof/ODP003_0001104 -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP003_0001104">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+        <rdfs:domain rdf:resource="https://w3id.org/lof/ODP003_0001000"/>
+        <rdfs:range rdf:resource="https://w3id.org/lof/ODP003_0001000"/>
+        <rdfs:comment xml:lang="en">Lets a query follow &apos;the same claim&apos; through changes of holder, which Option B had obtained by making positions generically dependent, without giving up the one-bearer axiom.</rdfs:comment>
+        <rdfs:label xml:lang="en">succeeds</rdfs:label>
+        <skos:definition xml:lang="en">A relation between a legal position and an earlier legal position, held by another party, whose place it takes in the same legal relation through an assignment, a succession, or a transfer of office.</skos:definition>
+        <skos:example xml:lang="en">a collection agency&apos;s claim to rent, acquired by assignment, succeeds the landlord&apos;s claim; an incoming commander&apos;s authority to issue orders succeeds the outgoing commander&apos;s</skos:example>
     </owl:ObjectProperty>
     
 
@@ -1083,6 +1134,83 @@
         <rdfs:comment xml:lang="en">Represents omission without reifying non-events: the omission is the asserted non-discharge of a position over a temporal region, and the end of that region is typically the triggering occurrence of a remedial position. Proposal for review.</rdfs:comment>
         <rdfs:label xml:lang="en">undischarged during</rdfs:label>
         <skos:definition xml:lang="en">A relation between a first-order legal position and a temporal region during which no process occurs that complies with the position.</skos:definition>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/lof/ODP004_0001107 -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP004_0001107">
+        <owl:inverseOf rdf:resource="https://w3id.org/lof/ODP004_0001111"/>
+        <rdfs:domain rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
+        <rdfs:range rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description>
+                <owl:inverseOf rdf:resource="https://w3id.org/lof/ODP003_0001101"/>
+            </rdf:Description>
+            <rdf:Description rdf:about="https://w3id.org/lof/ODP003_0001103"/>
+            <rdf:Description rdf:about="https://w3id.org/lof/ODP001_0001100"/>
+        </owl:propertyChainAxiom>
+        <rdfs:comment xml:lang="en">Proposed by W. Mandrick (issue #12): a relation from higher-level law to the lower-level law enacted under its authority. Defined by a property chain over LOF-ODP-001 and 003, so it is inferred whenever the chain of authority is recorded: the higher content grounds a power (grounded in), the power is exercised in an act (exercised in), and the act establishes the lower content (establishes). The chain runs through the power exercised, not through ODP-001 &apos;performed under&apos;, so procedural rules under which an act is performed are not counted as its legal basis.</rdfs:comment>
+        <rdfs:label xml:lang="en">legal basis for</rdfs:label>
+        <skos:definition xml:lang="en">A relation between legal content and other legal content, wherein the former grounds a power that is exercised in the legal act that establishes the latter.</skos:definition>
+        <skos:example xml:lang="en">8 U.S.C. 1103(a)(3) is the legal basis for 8 C.F.R. 103.1.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/lof/ODP004_0001108 -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP004_0001108">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
+        <rdfs:range rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
+        <rdfs:comment xml:lang="en">Transitive, so the whole regress of authority (Minimum Legal Chain node 1, competency question 4) follows from the one-step links. Each step is the inverse of &apos;legal basis for&apos;.</rdfs:comment>
+        <rdfs:label xml:lang="en">derives authority from</rdfs:label>
+        <skos:definition xml:lang="en">A relation between legal content and legal content from which its authority descends through one or more steps of &apos;legal basis for&apos;.</skos:definition>
+        <skos:example xml:lang="en">8 C.F.R. 103.1 derives authority from 8 U.S.C. 1103(a)(3) and, through it, from Article I, section 8 of the U.S. Constitution.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/lof/ODP004_0001109 -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP004_0001109">
+        <rdfs:domain rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description>
+                <owl:inverseOf rdf:resource="https://w3id.org/lof/ODP003_0001101"/>
+            </rdf:Description>
+            <rdf:Description rdf:about="https://w3id.org/lof/ODP004_0001110"/>
+            <rdf:Description rdf:about="https://w3id.org/lof/ODP003_0001100"/>
+        </owl:propertyChainAxiom>
+        <rdfs:comment xml:lang="en">Proposed by W. Mandrick (issue #12). Inferred by a property chain from grounded in, held by, and the technical helper &apos;power self-link&apos;, which restricts the chain to powers so that duties grounded in the same content do not count as delegations.</rdfs:comment>
+        <rdfs:label xml:lang="en">delegates legal authority to</rdfs:label>
+        <skos:definition xml:lang="en">A relation between legal content and a person or organization that holds a power grounded in it.</skos:definition>
+        <skos:example xml:lang="en">8 U.S.C. 1103(a)(3) delegates legal authority to the Secretary of Homeland Security.</skos:example>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/lof/ODP004_0001110 -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP004_0001110">
+        <rdfs:domain rdf:resource="https://w3id.org/lof/ODP003_0001005"/>
+        <rdfs:range rdf:resource="https://w3id.org/lof/ODP003_0001005"/>
+        <rdfs:comment xml:lang="en">Not for direct assertion. It lets property chains such as &apos;delegates legal authority to&apos; apply only to powers (the standard OWL 2 self-restriction technique).</rdfs:comment>
+        <rdfs:label xml:lang="en">power self-link</rdfs:label>
+        <skos:definition xml:lang="en">A technical relation that holds between each power and itself, and only between powers.</skos:definition>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/lof/ODP004_0001111 -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP004_0001111">
+        <rdfs:subPropertyOf rdf:resource="https://w3id.org/lof/ODP004_0001108"/>
+        <rdfs:label xml:lang="en">has legal basis</rdfs:label>
+        <skos:definition xml:lang="en">A relation between legal content and the legal content that is its legal basis.</skos:definition>
     </owl:ObjectProperty>
     
 
@@ -1825,6 +1953,7 @@
 
     <owl:Class rdf:about="https://w3id.org/lof/ODP001_0001001">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000031"/>
+        <rdfs:comment xml:lang="en">A single body of legal content, such as a statute, typically has legal norms, legal definitions, and legal designators among its parts (BFO &apos;has continuant part&apos;). It is therefore not itself a norm, a definition, or a designator as a whole.</rdfs:comment>
         <rdfs:comment xml:lang="en">BFO placement (LOF-P-004): the same statute or contract term can be concretized in many copies and survives the destruction of any one of them. That is the mark of a generically dependent continuant. Legal content corresponds to the Work and Expression levels in FRBR-based legal standards.</rdfs:comment>
         <rdfs:label xml:lang="en">legal content</rdfs:label>
         <skos:altLabel xml:lang="en">legal information content</skos:altLabel>
@@ -1844,7 +1973,7 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">BFO placement (LOF-P-004): the particular signed paper, or the particular stored file, is a material entity that carries the content. Digital documents are treated as patterns in material storage media. Note that IAO&apos;s &apos;document&apos; is an information content entity, so it corresponds to legal content here, not to legal document. Legal document corresponds to the Item level in FRBR-based legal standards.</rdfs:comment>
+        <rdfs:comment xml:lang="en">BFO placement (LOF-P-004): the particular signed paper, or the particular stored file, is a material entity that carries the content. Digital documents are treated as patterns in material storage media. Note that IAO&apos;s &apos;document&apos; is an information content entity, so it corresponds to legal content here, not to legal document. Legal document corresponds to the Item level in FRBR-based legal standards. A legal document takes part in a legal act only as its instrument (performed by means of); otherwise it at most evidences the act (evidences).</rdfs:comment>
         <rdfs:label xml:lang="en">legal document</rdfs:label>
         <skos:definition xml:lang="en">A material entity that is the carrier of some legal content.</skos:definition>
     </owl:Class>
@@ -1884,6 +2013,42 @@
     
 
 
+    <!-- https://w3id.org/lof/ODP001_0001005 -->
+
+    <owl:Class rdf:about="https://w3id.org/lof/ODP001_0001005">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
+        <rdfs:comment xml:lang="en">The operative provisions of a statute, regulation, contract, or judgment. Legal positions (LOF-ODP-003) are grounded in legal norms. Corresponds to CCO &apos;process regulation&apos; and its three kinds (process requirement, process prohibition, action permission); see the LOF to CCO bridge.</rdfs:comment>
+        <rdfs:label xml:lang="en">legal norm</rdfs:label>
+        <skos:definition xml:lang="en">Legal content that requires, prohibits, or permits some kind of conduct.</skos:definition>
+        <skos:example xml:lang="en">a lease clause requiring rent to be paid by the first of the month; a statute prohibiting resuscitation of a person with a valid DNR order</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/lof/ODP001_0001006 -->
+
+    <owl:Class rdf:about="https://w3id.org/lof/ODP001_0001006">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
+        <rdfs:comment xml:lang="en">Corresponds to CCO &apos;descriptive information content entity&apos;.</rdfs:comment>
+        <rdfs:label xml:lang="en">legal definition</rdfs:label>
+        <skos:definition xml:lang="en">Legal content that states what a term means for the purposes of some other legal content.</skos:definition>
+        <skos:example xml:lang="en">the definitions section of a statute</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/lof/ODP001_0001007 -->
+
+    <owl:Class rdf:about="https://w3id.org/lof/ODP001_0001007">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
+        <rdfs:comment xml:lang="en">Corresponds to CCO &apos;designative information content entity&apos;. The natural point of attachment for identifier standards such as Akoma Ntoso eIds and ELI.</rdfs:comment>
+        <rdfs:label xml:lang="en">legal designator</rdfs:label>
+        <skos:definition xml:lang="en">Legal content that names or identifies some legal content or legal document, such as a title, a section number, or a citation.</skos:definition>
+        <skos:example xml:lang="en">&apos;8 U.S.C. 1103(a)(3)&apos;; the short title of an act</skos:example>
+    </owl:Class>
+    
+
+
     <!-- https://w3id.org/lof/ODP002_0001000 -->
 
     <owl:Class rdf:about="https://w3id.org/lof/ODP002_0001000">
@@ -1894,6 +2059,14 @@
                 <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000197"/>
+                <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment xml:lang="en">A legal role has exactly one bearer (ISO/IEC 21838-2: a specifically dependent continuant inheres in exactly one bearer). When command passes from one officer to another, or a trustee is replaced, the outgoing role is terminated and a new role is conferred; what persists is the legal content that specifies both roles. Proposed by W. Mandrick&apos;s change-of-command use case.</rdfs:comment>
+        <rdfs:comment xml:lang="en">A legal role may be borne by an organization as well as a person. Persons who act for an organization, for example in a conferral act, take part as members or agents of it; the Common Core Ontologies supply &apos;organization&apos;, &apos;organization member role&apos;, and &apos;is affiliated with&apos; for this, and the LOF to CCO bridge aligns them.</rdfs:comment>
         <rdfs:comment xml:lang="en">BFO placement (LOF-P-004): a legal role is borne by a person or organization because of external circumstances (an appointment, a contract, a statute) rather than because of the bearer&apos;s physical make-up, and the bearer need not change physically to acquire or lose it. That is the mark of a BFO role, as opposed to a disposition.</rdfs:comment>
         <rdfs:label xml:lang="en">legal role</rdfs:label>
         <skos:definition xml:lang="en">A role that inheres in a person or organization in virtue of some legal act or legal content, and that is realized in processes having legal significance.</skos:definition>
@@ -1939,6 +2112,7 @@
             </owl:Class>
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="https://w3id.org/lof/ODP001_0001000"/>
+        <rdfs:comment xml:lang="en">The conferral act realizes the power (LOF-ODP-003) of whoever performs it, which corresponds to the D-Acts &apos;deontic declaration performer role&apos;. It does not realize the role it confers: that role is realized later, when its bearer acts in it. A conferral act occupies a temporal region (BFO &apos;occupies temporal region&apos;), which dates the role&apos;s beginning.</rdfs:comment>
         <rdfs:label xml:lang="en">role conferral act</rdfs:label>
         <skos:definition xml:lang="en">A legal act that brings some legal role into existence in some bearer.</skos:definition>
         <skos:example xml:lang="en">the commissioning of a judge; the execution of a trust instrument naming a trustee; the signing of a lease</skos:example>
@@ -1968,10 +2142,33 @@
     
 
 
+    <!-- https://w3id.org/lof/ODP002_0001004 -->
+
+    <owl:Class rdf:about="https://w3id.org/lof/ODP002_0001004">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="https://w3id.org/lof/ODP001_0001000"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="https://w3id.org/lof/ODP002_0001104"/>
+                        <owl:someValuesFrom rdf:resource="https://w3id.org/lof/ODP002_0001000"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="https://w3id.org/lof/ODP001_0001000"/>
+        <rdfs:comment xml:lang="en">Proposed by W. Mandrick (ODP 2 slide). The current D-Acts &apos;deontic declaration&apos; covers creating and revoking a deontic role but not modifying one, so this class has no D-Acts parent until D-Acts extends its definition.</rdfs:comment>
+        <rdfs:label xml:lang="en">role modification act</rdfs:label>
+        <skos:definition xml:lang="en">A legal act that changes what an existing legal role consists in, without bringing the role to an end.</skos:definition>
+        <skos:example xml:lang="en">a court order enlarging a guardian&apos;s powers; an amendment to a lease changing the tenant&apos;s obligations</skos:example>
+    </owl:Class>
+    
+
+
     <!-- https://w3id.org/lof/ODP003_0001000 -->
 
     <owl:Class rdf:about="https://w3id.org/lof/ODP003_0001000">
-        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000020"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000023"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="https://w3id.org/lof/ODP003_0001100"/>
@@ -1990,7 +2187,7 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/lof/ODP003_0001000"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">BFO placement, OPTION A (LOF-P-004): a legal position is a specifically dependent continuant inhering in its holder, as a role or disposition does. It exists only as long as its holder exists and cannot migrate from one holder to another, so assignment of a claim is modeled as the termination of one position and the creation of a new one in the assignee. OPEN QUESTION for the founding coordinators; see Option B.</rdfs:comment>
+        <rdfs:comment xml:lang="en">BFO placement (LOF-P-004): a legal position is a role. It inheres in its holder because of the holder&apos;s legal circumstances (a contract, a statute, an appointment), not the holder&apos;s physical make-up, and it is realized when the holder complies, acts, or exercises it. Like every specifically dependent continuant it has exactly one holder, so the assignment of a claim or the passing of command authority ends one position and begins another, linked by &apos;succeeds&apos;. Adopted in 0.2.0 on W. Mandrick&apos;s proposal (issue #9) to align with the D-Acts deontic roles; this resolves the former Option A versus Option B question.</rdfs:comment>
         <rdfs:label xml:lang="en">legal position</rdfs:label>
         <skos:altLabel xml:lang="en">Hohfeldian position</skos:altLabel>
         <skos:definition xml:lang="en">A continuant that is held by a person or organization in virtue of some legal content, and that consists in what the holder is legally required, permitted, or enabled to do, or protected from having done to them, in relation to some other party.</skos:definition>
@@ -2103,6 +2300,12 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="https://w3id.org/lof/ODP003_0001102"/>
                 <owl:allValuesFrom rdf:resource="https://w3id.org/lof/ODP003_0001006"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://w3id.org/lof/ODP004_0001110"/>
+                <owl:hasSelf rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</owl:hasSelf>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:label xml:lang="en">power</rdfs:label>

@@ -10,12 +10,12 @@
      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
      xmlns:dcterms="http://purl.org/dc/terms/">
     <owl:Ontology rdf:about="https://w3id.org/lof/odp-004/imports/odp-001_import.owl">
-        <owl:versionIRI rdf:resource="https://w3id.org/lof/odp-001/releases/0.1.0/lof-odp-001-base.owl"/>
+        <owl:versionIRI rdf:resource="https://w3id.org/lof/odp-001/releases/0.2.0/lof-odp-001-base.owl"/>
         <dcterms:creator>David R. Koepsell</dcterms:creator>
         <dcterms:description xml:lang="en">Ontology design pattern distinguishing three entities that legal information systems routinely conflate: the legal act (a process), the legal content it establishes (a generically dependent continuant), and the legal documents that carry that content (material entities). DRAFT for review by the LOF founding coordinators.</dcterms:description>
         <dcterms:license rdf:resource="https://creativecommons.org/licenses/by/4.0/"/>
         <dcterms:title xml:lang="en">LOF-ODP-001: Legal Act and Legal Document</dcterms:title>
-        <owl:versionInfo>0.1.0</owl:versionInfo>
+        <owl:versionInfo>0.2.0</owl:versionInfo>
     </owl:Ontology>
     
 
@@ -134,6 +134,30 @@
     
 
 
+    <!-- https://w3id.org/lof/ODP001_0001103 -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP001_0001103">
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000057"/>
+        <rdfs:domain rdf:resource="https://w3id.org/lof/ODP001_0001000"/>
+        <rdfs:range rdf:resource="https://w3id.org/lof/ODP001_0001002"/>
+        <rdfs:comment xml:lang="en">Documents do not act; persons and organizations do. A document related by this relation is an operative (dispositive) instrument: the law makes the writing part of how the act is done. Contrast evidences, which holds of documents that merely record or attest to an act.</rdfs:comment>
+        <rdfs:label xml:lang="en">performed by means of</rdfs:label>
+        <skos:definition xml:lang="en">A relation between a legal act and a legal document that participates in it as the instrument through which the act is performed, as when a deed is executed or a statutory form is signed before witnesses.</skos:definition>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://w3id.org/lof/ODP001_0001104 -->
+
+    <owl:ObjectProperty rdf:about="https://w3id.org/lof/ODP001_0001104">
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/BFO_0000040"/>
+        <rdfs:comment xml:lang="en">Evidencing is not participation: the evidencing entity may come into existence after the act, and the act may occur with no document at all. Nothing about an act, role, or position may be inferred from the existence of an evidencing document alone. An instrument usually also evidences the act performed by means of it, so the two relations are not disjoint.</rdfs:comment>
+        <rdfs:label xml:lang="en">evidences</rdfs:label>
+        <skos:definition xml:lang="en">A relation between a material entity, such as a legal document, and a legal act, legal content, or other entity whose existence or occurrence it records or attests to.</skos:definition>
+    </owl:ObjectProperty>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -185,6 +209,7 @@
 
     <owl:Class rdf:about="https://w3id.org/lof/ODP001_0001001">
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000031"/>
+        <rdfs:comment xml:lang="en">A single body of legal content, such as a statute, typically has legal norms, legal definitions, and legal designators among its parts (BFO &apos;has continuant part&apos;). It is therefore not itself a norm, a definition, or a designator as a whole.</rdfs:comment>
         <rdfs:comment xml:lang="en">BFO placement (LOF-P-004): the same statute or contract term can be concretized in many copies and survives the destruction of any one of them. That is the mark of a generically dependent continuant. Legal content corresponds to the Work and Expression levels in FRBR-based legal standards.</rdfs:comment>
         <rdfs:label xml:lang="en">legal content</rdfs:label>
         <skos:altLabel xml:lang="en">legal information content</skos:altLabel>
@@ -204,7 +229,7 @@
                 <owl:someValuesFrom rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
             </owl:Restriction>
         </rdfs:subClassOf>
-        <rdfs:comment xml:lang="en">BFO placement (LOF-P-004): the particular signed paper, or the particular stored file, is a material entity that carries the content. Digital documents are treated as patterns in material storage media. Note that IAO&apos;s &apos;document&apos; is an information content entity, so it corresponds to legal content here, not to legal document. Legal document corresponds to the Item level in FRBR-based legal standards.</rdfs:comment>
+        <rdfs:comment xml:lang="en">BFO placement (LOF-P-004): the particular signed paper, or the particular stored file, is a material entity that carries the content. Digital documents are treated as patterns in material storage media. Note that IAO&apos;s &apos;document&apos; is an information content entity, so it corresponds to legal content here, not to legal document. Legal document corresponds to the Item level in FRBR-based legal standards. A legal document takes part in a legal act only as its instrument (performed by means of); otherwise it at most evidences the act (evidences).</rdfs:comment>
         <rdfs:label xml:lang="en">legal document</rdfs:label>
         <skos:definition xml:lang="en">A material entity that is the carrier of some legal content.</skos:definition>
     </owl:Class>
@@ -240,6 +265,42 @@
         </rdfs:subClassOf>
         <rdfs:label xml:lang="en">contract formation</rdfs:label>
         <skos:definition xml:lang="en">A legal act in which two or more parties establish legal content that binds them to one another.</skos:definition>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/lof/ODP001_0001005 -->
+
+    <owl:Class rdf:about="https://w3id.org/lof/ODP001_0001005">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
+        <rdfs:comment xml:lang="en">The operative provisions of a statute, regulation, contract, or judgment. Legal positions (LOF-ODP-003) are grounded in legal norms. Corresponds to CCO &apos;process regulation&apos; and its three kinds (process requirement, process prohibition, action permission); see the LOF to CCO bridge.</rdfs:comment>
+        <rdfs:label xml:lang="en">legal norm</rdfs:label>
+        <skos:definition xml:lang="en">Legal content that requires, prohibits, or permits some kind of conduct.</skos:definition>
+        <skos:example xml:lang="en">a lease clause requiring rent to be paid by the first of the month; a statute prohibiting resuscitation of a person with a valid DNR order</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/lof/ODP001_0001006 -->
+
+    <owl:Class rdf:about="https://w3id.org/lof/ODP001_0001006">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
+        <rdfs:comment xml:lang="en">Corresponds to CCO &apos;descriptive information content entity&apos;.</rdfs:comment>
+        <rdfs:label xml:lang="en">legal definition</rdfs:label>
+        <skos:definition xml:lang="en">Legal content that states what a term means for the purposes of some other legal content.</skos:definition>
+        <skos:example xml:lang="en">the definitions section of a statute</skos:example>
+    </owl:Class>
+    
+
+
+    <!-- https://w3id.org/lof/ODP001_0001007 -->
+
+    <owl:Class rdf:about="https://w3id.org/lof/ODP001_0001007">
+        <rdfs:subClassOf rdf:resource="https://w3id.org/lof/ODP001_0001001"/>
+        <rdfs:comment xml:lang="en">Corresponds to CCO &apos;designative information content entity&apos;. The natural point of attachment for identifier standards such as Akoma Ntoso eIds and ELI.</rdfs:comment>
+        <rdfs:label xml:lang="en">legal designator</rdfs:label>
+        <skos:definition xml:lang="en">Legal content that names or identifies some legal content or legal document, such as a title, a section number, or a citation.</skos:definition>
+        <skos:example xml:lang="en">&apos;8 U.S.C. 1103(a)(3)&apos;; the short title of an act</skos:example>
     </owl:Class>
 </rdf:RDF>
 

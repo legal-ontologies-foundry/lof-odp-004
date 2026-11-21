@@ -1,0 +1,136 @@
+# Worked example 2 for LOF-ODP-001 to 004: change of command,
+# 3rd Infantry Battalion, 15 June 2026. Adapted from W. Mandrick's
+# "Change (Assumption) of Command" use case. Hypothetical officers.
+#
+# Modeling choices to be confirmed (marked CONFIRM below):
+#  - Two commander roles, not one: Jones's ends, Smith's begins. Roles are
+#    specifically dependent continuants and cannot pass between bearers.
+#  - What persists across commanders is the POSITION, represented here as the
+#    legal content of the MTOE authorization line (one candidate answer to
+#    ODP-002 open question 1).
+#  - The role is conferred by the assumption process, performed under the
+#    Assumption of Command Order (the alternative: the order's issuance confers).
+@prefix ex:   <https://example.org/command/> .
+@prefix odp1: <https://w3id.org/lof/ODP001_> .
+@prefix odp2: <https://w3id.org/lof/ODP002_> .
+@prefix odp3: <https://w3id.org/lof/ODP003_> .
+@prefix odp4: <https://w3id.org/lof/ODP004_> .
+@prefix obo:  <http://purl.obolibrary.org/obo/> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://w3id.org/lof/odp-004/examples/change-of-command.ttl> a owl:Ontology ;
+  owl:imports <https://w3id.org/lof/odp-004.owl> .
+
+# ---------------------------------------------------------------- parties
+ex:congress   a obo:BFO_0000040 ; rdfs:label "United States Congress" .
+ex:secretary  a obo:BFO_0000040 ; rdfs:label "Secretary of the Army" .
+ex:army       a obo:BFO_0000040 ; rdfs:label "Department of the Army" .
+ex:issuer     a obo:BFO_0000040 ;
+  rdfs:label "authority issuing the assumption order (CONFIRM: incoming commander or superior)" .
+ex:battalion  a obo:BFO_0000027 ; rdfs:label "3rd Infantry Battalion" .
+ex:smith      a obo:BFO_0000040 ; rdfs:label "LTC John Smith (incoming)" ;
+  obo:BFO_0000129 ex:battalion .                       # member part of
+ex:jones      a obo:BFO_0000040 ; rdfs:label "LTC David Jones (outgoing)" .
+
+# ---------------------------------------------------------------- authority chain (ODP-004 node 1)
+ex:constitution a odp1:0001001 ; rdfs:label "U.S. Constitution, Art. I, sec. 8" .
+
+ex:congressArmyPower a odp3:0001005 ;                   # power
+  rdfs:label "power of Congress to raise armies and make rules for their government" ;
+  odp3:0001100 ex:congress ; odp3:0001101 ex:constitution ;
+  odp3:0001102 ex:armyLiabilityToLegislation ;
+  odp3:0001103 ex:title10Enactment .                    # exercised in
+ex:armyLiabilityToLegislation a odp3:0001006 ; odp3:0001100 ex:army ; odp3:0001101 ex:constitution .
+
+ex:title10Enactment a odp1:0001003 ; rdfs:label "enactment of Title 10, U.S. Code" ;
+  obo:BFO_0000057 ex:congress ;
+  odp1:0001100 ex:title10 ; odp1:0001102 ex:constitution .
+ex:title10 a odp1:0001001 ; rdfs:label "Title 10, U.S. Code, including 10 U.S.C. sec. 7013" .
+
+ex:secretaryRegulatoryPower a odp3:0001005 ;
+  rdfs:label "Secretary's authority over Department of the Army affairs (10 U.S.C. sec. 7013)" ;
+  odp3:0001100 ex:secretary ; odp3:0001101 ex:title10 ;
+  odp3:0001102 ex:armyLiabilityToRegulation ;
+  odp3:0001103 ex:ar60020Issuance .
+ex:armyLiabilityToRegulation a odp3:0001006 ; odp3:0001100 ex:army ; odp3:0001101 ex:title10 .
+
+ex:ar60020Issuance a odp1:0001000 ; rdfs:label "issuance of AR 600-20" ;
+  obo:BFO_0000057 ex:secretary ;
+  odp1:0001100 ex:ar60020 ; odp1:0001102 ex:title10 .
+ex:ar60020 a odp1:0001001 ; rdfs:label "AR 600-20, Army Command Policy" .
+
+ex:orderIssuingPower a odp3:0001005 ;
+  rdfs:label "power to issue assumption of command orders" ;
+  odp3:0001100 ex:issuer ; odp3:0001101 ex:ar60020 ;
+  odp3:0001102 ex:battalionLiabilityToOrders ;
+  odp3:0001103 ex:orderIssuance .
+ex:battalionLiabilityToOrders a odp3:0001006 ; odp3:0001100 ex:battalion ; odp3:0001101 ex:ar60020 .
+
+ex:orderIssuance a odp1:0001000 ; rdfs:label "issuance of the Assumption of Command Order" ;
+  obo:BFO_0000057 ex:issuer ;
+  odp1:0001100 ex:assumptionOrder ; odp1:0001102 ex:ar60020 .
+ex:assumptionOrder a odp1:0001001 ;
+  rdfs:label "Assumption of Command Order: LTC Smith assumes command effective 15 June 2026 1000hrs" .
+ex:signedOrderCopy a odp1:0001002 ; rdfs:label "signed copy of the order" ;
+  obo:BFO_0000101 ex:assumptionOrder .                 # is carrier of
+
+# ---------------------------------------------------------------- the persisting position (ODP-002 Q1)
+ex:mtoeAuthorization a odp1:0001000 ; rdfs:label "authorization of the unit MTOE" ;
+  odp1:0001100 ex:commanderPosition ; odp1:0001102 ex:ar60020 .
+ex:commanderPosition a odp1:0001001 ;
+  rdfs:label "MTOE line 01, Commander, 3rd Infantry Battalion (the position)" .
+ex:dutyDescription a odp1:0001001 ; rdfs:label "Infantry Battalion Commander duty description" .
+
+# ---------------------------------------------------------------- the ceremony and its legal acts
+ex:ceremony a obo:BFO_0000015 ; rdfs:label "Change of Command Ceremony #001" ;
+  obo:BFO_0000057 ex:smith , ex:jones , ex:battalion ;
+  obo:BFO_0000117 ex:relinquishment , ex:assumption .  # has occurrent part
+
+ex:commandStart a obo:BFO_0000203 ; rdfs:label "15 June 2026 1000hrs" .   # temporal instant
+
+ex:relinquishment a odp1:0001000 ; rdfs:label "Relinquishment of Command Process #001" ;
+  obo:BFO_0000057 ex:jones ;
+  odp1:0001102 ex:ar60020 ;
+  odp2:0001102 ex:jonesCommanderRole .                 # terminates
+
+ex:assumption a odp1:0001000 ; rdfs:label "Assumption of Command Process #001" ;
+  obo:BFO_0000057 ex:smith ;
+  odp1:0001102 ex:assumptionOrder ;                    # performed under
+  obo:BFO_0000055 ex:smithOfficerRole .                # realizes
+
+# ---------------------------------------------------------------- roles: two, not one
+ex:jonesCommanderRole a odp2:0001000 ; rdfs:label "Jones's commander role (#001)" ;
+  obo:BFO_0000197 ex:jones ;
+  odp2:0001103 ex:commanderPosition , ex:dutyDescription .
+
+ex:smithCommanderRole a odp2:0001000 ; rdfs:label "Smith's commander role (#002)" ;
+  obo:BFO_0000197 ex:smith ;
+  odp2:0001101 ex:assumption ;                         # conferred by
+  odp2:0001103 ex:commanderPosition , ex:dutyDescription .
+
+ex:smithOfficerRole a odp2:0001000 ; rdfs:label "Smith's role as commissioned officer" ;
+  obo:BFO_0000197 ex:smith .
+
+# ---------------------------------------------------------------- Smith's positions (ODP-003) and their chains (ODP-004)
+ex:ucmj a odp1:0001001 ; rdfs:label "Uniform Code of Military Justice, Art. 92" .
+
+ex:smithCommandPower a odp3:0001005 ;
+  rdfs:label "Smith's authority to issue lawful orders to the battalion" ;
+  odp3:0001100 ex:smith ; odp3:0001101 ex:ar60020 ;
+  odp3:0001102 ex:battalionLiabilityToCommand .
+ex:battalionLiabilityToCommand a odp3:0001006 ; odp3:0001100 ex:battalion ; odp3:0001101 ex:ar60020 .
+
+ex:smithReadinessDuty a odp3:0001002 ;
+  rdfs:label "Smith's duty to maintain the battalion's readiness" ;
+  odp3:0001100 ex:smith ;
+  odp3:0001101 ex:assumptionOrder ;
+  odp3:0001102 ex:armyReadinessClaim ;
+  odp4:0001102 ex:commandStart ;                       # triggered by
+  odp4:0001100 ex:assumption ;                         # generated by
+  odp4:0001105 ex:ucmj .                               # remedy provided by
+ex:armyReadinessClaim a odp3:0001001 ; rdfs:label "the Army's claim to the battalion's readiness" ;
+  odp3:0001100 ex:army ; odp3:0001101 ex:assumptionOrder .
+
+[] a owl:AllDifferent ; owl:distinctMembers
+  ( ex:congress ex:secretary ex:army ex:issuer ex:battalion ex:smith ex:jones ) .

@@ -12,7 +12,7 @@ LOF_DEPS := odp-001 odp-002 odp-003
 ROBOT_JAR := ../../bin/robot.jar
 ROBOT    := java -jar $(ROBOT_JAR)
 TMP      := tmp
-VERSION  ?= 0.1.0
+VERSION  ?= 0.2.0
 
 .PHONY: test reason verify report release clean
 test: verify report
@@ -71,3 +71,28 @@ shacl: test-options
 # Competency questions
 cq: test-options
 	for q in ../sparql/cq*.rq; do $(ROBOT) query --input $(TMP)/example-reasoned-A.ttl --query $$q $(TMP)/$$(basename $$q .rq).tsv; done
+
+# Worked example 2: change of command (both ODP-003 options, plus tests)
+.PHONY: command
+command: | $(ROBOT_JAR) $(TMP)
+	@for opt in A B; do c=catalog-examples.xml; [ $$opt = B ] && c=catalog-examples-option-b.xml; \
+	  $(ROBOT) merge --catalog $$c --input ../examples/command/change-of-command.ttl --output $(TMP)/cmd-$$opt.owl; \
+	  $(ROBOT) reason --reasoner HermiT --input $(TMP)/cmd-$$opt.owl --output $(TMP)/cmd-$$opt-r.owl && echo "Option $$opt: example consistent"; \
+	  $(ROBOT) merge --input $(TMP)/cmd-$$opt.owl --input ../examples/command/test-one-role-two-bearers.ttl \
+	    --input ../examples/command/proposal-functional-inherence.ttl --output $(TMP)/t1-$$opt.owl; \
+	  $(ROBOT) reason --reasoner HermiT --input $(TMP)/t1-$$opt.owl --output $(TMP)/x.owl 2>/dev/null \
+	    && echo "  one role, two bearers (with proposal): consistent" || echo "  one role, two bearers (with proposal): INCONSISTENT"; \
+	  $(ROBOT) merge --input $(TMP)/cmd-$$opt.owl --input ../examples/command/test-command-passes.ttl --output $(TMP)/t2-$$opt.owl; \
+	  $(ROBOT) reason --reasoner HermiT --input $(TMP)/t2-$$opt.owl --output $(TMP)/x.owl 2>/dev/null \
+	    && echo "  same command power passes: consistent" || echo "  same command power passes: INCONSISTENT"; \
+	  $(ROBOT) merge --input $(TMP)/cmd-$$opt.owl --input ../examples/command/test-command-succeeds.ttl --output $(TMP)/t3-$$opt.owl; \
+	  $(ROBOT) reason --reasoner HermiT --input $(TMP)/t3-$$opt.owl --output $(TMP)/x.owl 2>/dev/null \
+	    && echo "  new command power succeeds the old: consistent" || echo "  new command power succeeds the old: INCONSISTENT"; \
+	done
+
+# Worked example 3: legal basis and delegation (issue #12)
+.PHONY: legal-basis
+legal-basis: | $(ROBOT_JAR) $(TMP)
+	$(ROBOT) merge --catalog catalog-legal-basis.xml --input ../examples/legal-basis/legal-basis.ttl \
+	  reason --reasoner HermiT --output $(TMP)/legal-basis-reasoned.owl && echo "legal basis example: consistent"
+

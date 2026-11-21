@@ -1,0 +1,10 @@
+# Test 1: the deck's original model, in which a single commander role (#001)
+# is lost by Jones and gained by Smith, so that it inheres in both.
+# With BFO 2020 as published this is CONSISTENT (BFO states the one-bearer
+# rule only in its axioms, not in OWL). With the proposed ODP-002 fix
+# (proposal-functional-inherence.ttl) it is INCONSISTENT, as it should be.
+@prefix ex:  <https://example.org/command/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+<https://example.org/command/test-one-role> a owl:Ontology .
+ex:jonesCommanderRole obo:BFO_0000197 ex:smith .

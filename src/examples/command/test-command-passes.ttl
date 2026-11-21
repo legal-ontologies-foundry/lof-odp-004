@@ -1,0 +1,13 @@
+# Test 2 (ODP-003 placement): does the commander's authority itself pass
+# from Jones to Smith? Assert that Jones's command power is now held by
+# Smith. Option A: INCONSISTENT (positions cannot change holder; Smith's
+# authority is a new power). Option B: CONSISTENT (the same power persists).
+@prefix ex:   <https://example.org/command/> .
+@prefix odp3: <https://w3id.org/lof/ODP003_> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+<https://example.org/command/test-command-passes> a owl:Ontology .
+ex:jonesCommandPower a odp3:0001005 ; rdfs:label "Jones's authority to issue lawful orders" ;
+  odp3:0001100 ex:jones ; odp3:0001101 <https://example.org/command/ar60020> ;
+  odp3:0001102 ex:battalionLiabilityToCommand .
+ex:jonesCommandPower odp3:0001100 ex:smith .

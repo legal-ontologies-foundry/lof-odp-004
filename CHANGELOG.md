@@ -3,6 +3,12 @@
 All notable changes are recorded here. Versions follow semantic versioning
 (LOF-P-006).
 
+## [0.2.0] - 2026-10-16
+
+- Added `legal basis for` (ODP004_0001107), `derives authority from` (ODP004_0001108, transitive), its one-step inverse `has legal basis` (ODP004_0001111), and `delegates legal authority to` (ODP004_0001109), all inferred by property chains; plus a technical helper, `power self-link` (ODP004_0001110). Proposed by W. Mandrick, issue #12. Worked example 3.
+- Updated for LOF-ODP-001 to 003 0.2.0. Node 3 shape now requires *some* realized legal role, since acts now also realize the powers exercised in them.
+- Change-of-command example: the one-bearer rule is now part of ODP-002, and a new test shows Smith's authority succeeding Jones's.
+
 ## [0.1.0] - 2026-10-02
 
 - First draft for review by the LOF founding coordinators.

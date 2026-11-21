@@ -1,0 +1,39 @@
+# Worked example 3: legal basis and delegation (W. Mandrick, issue #12).
+# Article I, section 8 -> 8 U.S.C. 1103(a)(3) -> 8 C.F.R. 103.1.
+# Only the chain of authority is asserted; 'legal basis for', 'derives
+# authority from', and 'delegates legal authority to' are inferred.
+# Illustrative: the enactment and rulemaking are simplified to one act each.
+@prefix ex:   <http://example.org/lof/legal-basis/> .
+@prefix lof:  <https://w3id.org/lof/> .
+@prefix obo:  <http://purl.obolibrary.org/obo/> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://example.org/lof/legal-basis> a owl:Ontology ;
+  owl:imports <https://w3id.org/lof/odp-004.owl> .
+
+ex:congress a obo:BFO_0000040 ; rdfs:label "Congress" .
+ex:secretary a obo:BFO_0000040 ; rdfs:label "Secretary of Homeland Security" .
+ex:immigrationOfficer a obo:BFO_0000040 ; rdfs:label "an immigration officer" .
+
+ex:artI8 a lof:ODP001_0001005 ; rdfs:label "U.S. Const. art. I, sec. 8" .
+ex:usc1103a3 a lof:ODP001_0001005 ; rdfs:label "8 U.S.C. 1103(a)(3)" .
+ex:cfr1031 a lof:ODP001_0001005 ; rdfs:label "8 C.F.R. 103.1" .
+
+ex:legislativePower a lof:ODP003_0001005 ; rdfs:label "legislative power of Congress over naturalization" ;
+  lof:ODP003_0001100 ex:congress ; lof:ODP003_0001101 ex:artI8 .
+ex:enactment a lof:ODP001_0001003 ; rdfs:label "enactment of 8 U.S.C. 1103" ;
+  obo:BFO_0000057 ex:congress ; lof:ODP001_0001100 ex:usc1103a3 .
+ex:legislativePower lof:ODP003_0001103 ex:enactment .
+
+ex:rulemakingPower a lof:ODP003_0001005 ; rdfs:label "the Secretary's power to establish regulations" ;
+  lof:ODP003_0001100 ex:secretary ; lof:ODP003_0001101 ex:usc1103a3 .
+ex:rulemaking a lof:ODP001_0001000 ; rdfs:label "promulgation of 8 C.F.R. 103.1" ;
+  obo:BFO_0000057 ex:secretary ; lof:ODP001_0001100 ex:cfr1031 .
+ex:rulemakingPower lof:ODP003_0001103 ex:rulemaking .
+
+# A duty grounded in the same statute is NOT a delegation of authority.
+ex:officerDuty a lof:ODP003_0001002 ; rdfs:label "an officer's duty to apply the regulations" ;
+  lof:ODP003_0001100 ex:immigrationOfficer ; lof:ODP003_0001101 ex:usc1103a3 .
+
+[] a owl:AllDifferent ; owl:distinctMembers ( ex:congress ex:secretary ex:immigrationOfficer ) .

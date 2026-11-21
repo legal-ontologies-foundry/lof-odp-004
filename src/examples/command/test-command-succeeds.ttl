@@ -1,0 +1,10 @@
+# 0.2.0: command authority does not pass from Jones to Smith as one power;
+# Smith's new authority succeeds Jones's (LOF-ODP-003 'succeeds'). Consistent.
+@prefix ex:   <https://example.org/command/> .
+@prefix odp3: <https://w3id.org/lof/ODP003_> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+<https://example.org/command/test-command-succeeds> a owl:Ontology .
+ex:jonesCommandPower a odp3:0001005 ; rdfs:label "Jones's authority to issue lawful orders" ;
+  odp3:0001100 ex:jones ; odp3:0001101 ex:ar60020 .
+ex:smithCommandPower odp3:0001104 ex:jonesCommandPower .

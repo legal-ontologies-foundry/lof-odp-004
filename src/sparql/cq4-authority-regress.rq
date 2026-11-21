@@ -1,0 +1,10 @@
+# CQ4. Trace a position's authority back through every level: the powers
+# exercised in establishing its grounding content, the content those powers
+# are grounded in, and so on, to the point where the record stops.
+PREFIX lof: <https://w3id.org/lof/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?position ?power ?groundedIn WHERE {
+  ?p a lof:ODP003_0001009 ; rdfs:label ?position .
+  ?p (lof:ODP003_0001101/lof:ODP001_0001101/^lof:ODP003_0001103)+ ?w .
+  ?w rdfs:label ?power ; lof:ODP003_0001101/rdfs:label ?groundedIn .
+}

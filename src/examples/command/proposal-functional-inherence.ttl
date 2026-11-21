@@ -1,0 +1,8 @@
+# Proposal for ODP-002: state in OWL BFO's rule that a specifically
+# dependent continuant has exactly one bearer. Declaring 'inheres in'
+# functional is faithful to BFO 2020 (ISO 21838-2) and catches roles,
+# and Option-A positions, that are wrongly given two bearers.
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+<https://w3id.org/lof/odp-002/proposals/functional-inherence> a owl:Ontology .
+obo:BFO_0000197 a owl:ObjectProperty , owl:FunctionalProperty .
